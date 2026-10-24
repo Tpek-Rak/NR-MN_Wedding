@@ -1,0 +1,54 @@
+=== Function yd at 254787 ===
+function yd(e,{names:t,dateShort:n,triLeft:r=``,triRight:i=``}){e.innerHTML=`
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+    <clipPath id="clip-flap" clipPathUnits="objectBoundingBox"><path d="${hd()}"/></clipPath>
+    <clipPath id="clip-tri-a" clipPathUnits="objectBoundingBox"><path d="${pd(!1)}"/></clipPath>
+    <clipPath id="clip-tri-b" clipPathUnits="objectBoundingBox"><path d="${pd(!0)}"/></clipPath>
+  </defs></svg>
+  <div class="e2" id="env">
+    <div class="e2__ground" aria-hidden="true"></div>
+    <div class="e2__stage" id="env-tilt">
+      <div class="e2__part e2__back"></div>
+      <div class="e2__card" id="env-card">
+        <div class="e2__card-frame"></div>
+        <div class="e2__card-corners">${[`tl`,`tr`,`bl`,`br`].map(e=>rd(e)).join(``)}</div>
+        <div class="e2__card-inner">
+          <div class="e2__card-kicker" data-t="kicker"></div>
+          ${cd({...t,crest:!0,cls:`lk-card`})}
+          <div class="e2__card-invite" data-t="inviteTo"></div>
+          <div class="e2__card-date">${n}</div>
+        </div>
+        ${bd(`l`,r)}
+        ${bd(`r`,i)}
+        <div class="e2__tri-crest" aria-hidden="true">${ad()}</div>
+      </div>
+      <div class="e2__part e2__pocket">
+        <div class="e2__pocket-l"></div><div class="e2__pocket-r"></div><div class="e2__pocket-b"></div>
+        <div class="e2__emboss">${rd(`bl`)}${rd(`br`)}</div>
+        <div class="e2__date">${n}</div>
+      </div>
+      <div class="e2__part e2__flapshadow" id="flap-shadow"></div>
+      <div class="e2__part e2__flap" id="env-flap">
+        <div class="e2__flap-front">
+          <svg class="e2__flap-foil" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+            <path d="${gd()}" transform="translate(50 2.5) scale(.93) translate(-50 0)" />
+          </svg>
+          <div class="e2__flap-border">${sd()}</div>
+          <div class="e2__flap-logo">${cd({...t,crest:!0,cls:`lk-env`})}</div>
+        </div>
+        <div class="e2__flap-back"><div class="e2__flap-crest">${td()}</div></div>
+      </div>
+      <button class="e2__seal" id="seal" type="button" aria-label="Open the invitation / បើកធៀប">${vd()}</button>
+    </div>
+  </div>`}function bd(e,t){let n=e===`l`?`a`:`b`,r=e===`l`?`b`:`a`,i=e=>`<svg class="tri__line" viewBox="0 0 1 1" preserveAspectRatio="none" aria-hidden="true"><path d="${pd(e)}" transform="translate(.5 .5) scale(.93 .95) translate(-.5 -.5)"/></svg>`;return`
+        <div class="e2__tri e2__tri--${e}" id="tri-${e}">
+          <div class="tri__face tri__out" style="clip-path:url(#clip-tri-${n})">${i(n===`b`)}
+            <div class="tri__corner">${rd(e===`l`?`tl`:`tr`)}</div>
+            <div class="tri__corner tri__corner--b">${rd(e===`l`?`bl`:`br`)}</div>
+          </div>
+          <div class="tri__face tri__in" style="clip-path:url(#clip-tri-${r})">${i(r===`b`)}<div class="tri__content">${t}</div></div>
+        </div>`}function xd({gate:e,reduce:t,fine:n,onOpen:r,onStart:i}){let a=e.querySelector(`#env`),o=e.querySelector(`#env-tilt`),s=e.querySelector(`#seal`),c=e.querySelectorAll(`.e2__part`);W.from(`.gate__invite > *`,{y:20,opacity:0,duration:1.2,ease:`silk`,stagger:.12,delay:.1}),W.from(a,{y:80,rotateX:22,opacity:0,duration:1.6,ease:`power3.out`,delay:.15}),W.from(s,{scale:1.25,opacity:0,duration:.9,ease:`back.out(2)`,delay:1}),W.from(`.gate__hint`,{opacity:0,duration:1,delay:1.5});let l=t?null:W.to(o,{y:-6,duration:2.6,ease:`sine.inOut`,yoyo:!0,repeat:-1}),u=(e,t)=>W.to(o,{rotateY:e*9,rotateX:6-t*7,duration:.8,ease:`power3.out`,overwrite:`auto`}),d=e=>u(e.clientX/innerWidth-.5,e.clientY/innerHeight-.5),f=e=>{e.gamma!=null&&u(W.utils.clamp(-.5,.5,e.gamma/40),W.utils.clamp(-.5,.5,(e.beta-45)/40))};t||(n?e.addEventListener(`pointermove`,d):window.addEventListener(`deviceorientation`,f)),W.set(o,{rotateX:6});let p=e.querySelector(`#env-card`),m=e=>{let t=p.offsetWidth,n=p.offsetHeight;return Math.min(1.35,innerWidth*.94/(t*e),innerHeight*.8/n)},h=!1,g=()=>{if(h)retu
+========================================
+=== Function xd at 257719 ===
+function xd({gate:e,reduce:t,fine:n,onOpen:r,onStart:i}){let a=e.querySelector(`#env`),o=e.querySelector(`#env-tilt`),s=e.querySelector(`#seal`),c=e.querySelectorAll(`.e2__part`);W.from(`.gate__invite > *`,{y:20,opacity:0,duration:1.2,ease:`silk`,stagger:.12,delay:.1}),W.from(a,{y:80,rotateX:22,opacity:0,duration:1.6,ease:`power3.out`,delay:.15}),W.from(s,{scale:1.25,opacity:0,duration:.9,ease:`back.out(2)`,delay:1}),W.from(`.gate__hint`,{opacity:0,duration:1,delay:1.5});let l=t?null:W.to(o,{y:-6,duration:2.6,ease:`sine.inOut`,yoyo:!0,repeat:-1}),u=(e,t)=>W.to(o,{rotateY:e*9,rotateX:6-t*7,duration:.8,ease:`power3.out`,overwrite:`auto`}),d=e=>u(e.clientX/innerWidth-.5,e.clientY/innerHeight-.5),f=e=>{e.gamma!=null&&u(W.utils.clamp(-.5,.5,e.gamma/40),W.utils.clamp(-.5,.5,(e.beta-45)/40))};t||(n?e.addEventListener(`pointermove`,d):window.addEventListener(`deviceorientation`,f)),W.set(o,{rotateX:6});let p=e.querySelector(`#env-card`),m=e=>{let t=p.offsetWidth,n=p.offsetHeight;return Math.min(1.35,innerWidth*.94/(t*e),innerHeight*.8/n)},h=!1,g=()=>{if(h)return;h=!0,e.removeEventListener(`pointermove`,d),window.removeEventListener(`deviceorientation`,f),l&&l.kill(),e.classList.add(`is-opening`),i&&i();let t=!1,n=()=>{t||(t=!0,r(),W.to(e,{opacity:0,duration:1.1,ease:`power1.inOut`,onComplete:()=>e.remove()}))};W.timeline({defaults:{ease:`power2.inOut`}}).to(o,{rotateX:4,rotateY:0,y:0,duration:.6},0).to(`.gate__invite, .gate__hint`,{opacity:0,y:-14,duration:.7},0).to(s,{scale:.93,duration:.18,ease:`power2.in`},0).to(s,{scale:1.1,y:-18,rotate:-10,duration:.55,ease:`power2.out`},.18).to(s,{"--seal-shadow":1,duration:.55},.18).to(s,{x:`38vw`,y:`60vh`,rotate:70,scale:.9,duration:.9,ease:`power2.in`},.8).set(`#env-card`,{opacity:0,zIndex:6},0).call(()=>p.classList.add(`is-3d`),null,.7).to(c,{opacity:0,scale:.94,y:30,duration:.55,ease:`power2.in`},.7).to(`.e2__ground`,{opacity:0,duration:.6},.75).fromTo(`#env-card`,{opacity:0,yPercent:8,scale:()=>m(1)*.9},{opacity:1,yPercent:0,rotate:0,scale:()=>m(1),duration:1,ease:`power3.out`},1.1).to(`.e2__tri-crest`,{scale:.6,opacity:0,duration:.45,ease:`power2.in`},2.1).to(`#env-card`,{scale:()=>m(2),duration:1.4,ease:`power2.inOut`},2.25).to(`#tri-l`,{rotateY:-180,duration:1.4,ease:`power2.inOut`},2.3).to(`#tri-r`,{rotateY:180,duration:1.4,ease:`power2.inOut`},2.45).to(`.gate__dim`,{opacity:1,duration:.9,ease:`power1.in`},4.5).to(`#env-card`,{scale:()=>m(2)*1.8,opacity:0,duration:1,ease:`power2.in`},4.5).add(n,5.35),setTimeout(n,8e3)};s.addEventListener(`click`,g),a.addEventListener(`click`,e=>{s.contains(e.target)||g()});let _=null;a.addEventListener(`pointerdown`,e=>_=e.clientY),window.addEventListener(`pointerup`,e=>{_!==null&&_-e.clientY>40&&g(),_=null})}var Sd={telegram:`<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>`,messenger:`<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 0C5.24 0 0 4.952 0 11.64c0 3.499 1.434 6.521 3.769 8.61a.96.96 0 0 1 .323.683l.065 2.135a.96.96 0 0 0 1.347.85l2.381-1.053a.96.96 0 0 1 .641-.046A13 13 0 0 0 12 23.28c6.76 0 12-4.952 12-11.64S18.76 0 12 0m6.806 7.44c.522-.03.971.567.63 1.094l-4.178 6.457a.707.707 0 0 1-.977.208l-3.87-2.504a.44.44 0 0 0-.49.007l-4.363 3.01c-.637.438-1.415-.317-.995-.966l4.179-6.457a.706.706 0 0 1 .977-.21l3.87 2.505c.15.097.344.094.491-.007l4.362-3.008a.7.7 0 0
+========================================

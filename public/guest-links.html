@@ -1,0 +1,631 @@
+<!doctype html>
+<html lang="km">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ឧបករណ៍គ្រប់គ្រងបញ្ជីភ្ញៀវ & បង្កើត Link ធៀបការ · Guest List & Link Generator</title>
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Kantumruy+Pro:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Moul&display=swap" rel="stylesheet" />
+
+  <!-- SheetJS (xlsx) for reading/writing Excel files in browser -->
+  <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+
+  <style>
+    :root {
+      --bg: #1e220e;
+      --card-bg: #fcfaf4;
+      --paper-border: #e0d0b0;
+      --gold: #cfa850;
+      --gold-dark: #916e1e;
+      --text: #222610;
+      --text-dim: #606450;
+      --olive: #56612d;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Kantumruy Pro', system-ui, sans-serif;
+      background-color: var(--bg);
+      background-image: radial-gradient(circle at 50% 20%, #2f3617 0%, #151809 100%);
+      color: var(--text);
+      min-height: 100vh;
+      padding: 24px 16px 60px;
+    }
+    .container {
+      max-width: 1040px;
+      margin: 0 auto;
+    }
+    header {
+      text-align: center;
+      margin-bottom: 2rem;
+      color: #fff;
+    }
+    .header-tag {
+      font-size: 0.9rem;
+      color: var(--gold);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 6px;
+    }
+    h1 {
+      font-family: 'Moul', serif;
+      font-size: clamp(1.3rem, 3.8vw, 1.9rem);
+      color: var(--gold);
+      text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+      line-height: 1.6;
+    }
+    .subtitle {
+      font-size: 0.95rem;
+      color: #cfd4be;
+      margin-top: 4px;
+    }
+    .card {
+      background: var(--card-bg);
+      border: 1.5px solid var(--paper-border);
+      border-radius: 16px;
+      padding: 24px;
+      box-shadow: 0 16px 40px rgba(0,0,0,0.35);
+      margin-bottom: 20px;
+    }
+    .card-title {
+      font-family: 'Moul', serif;
+      font-size: 1.05rem;
+      color: var(--text);
+      margin-bottom: 14px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 16px;
+      margin-bottom: 16px;
+    }
+    label {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: var(--text);
+    }
+    input, select, textarea {
+      padding: 10px 14px;
+      border: 1.5px solid #d8caa7;
+      border-radius: 8px;
+      font-family: inherit;
+      font-size: 0.95rem;
+      background: #fff;
+      color: #1a1e0c;
+      outline: none;
+      transition: all 0.2s;
+    }
+    input:focus, select:focus, textarea:focus {
+      border-color: var(--gold-dark);
+      box-shadow: 0 0 0 3px rgba(207, 168, 80, 0.2);
+    }
+    .drop-zone {
+      border: 2px dashed #caa85a;
+      background: rgba(207, 168, 80, 0.06);
+      border-radius: 12px;
+      padding: 32px 20px;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      margin-bottom: 16px;
+    }
+    .drop-zone:hover, .drop-zone.dragover {
+      background: rgba(207, 168, 80, 0.15);
+      border-color: var(--gold-dark);
+      transform: scale(1.01);
+    }
+    .drop-icon {
+      font-size: 2.4rem;
+      margin-bottom: 8px;
+      display: block;
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 10px 18px;
+      border-radius: 8px;
+      font-family: inherit;
+      font-size: 0.95rem;
+      font-weight: 500;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.2s;
+      border: none;
+    }
+    .btn--primary {
+      background: linear-gradient(135deg, #d9b15a, #a67c25);
+      color: #1a1e0c;
+      font-weight: 600;
+      box-shadow: 0 3px 10px rgba(166, 124, 37, 0.3);
+    }
+    .btn--primary:hover {
+      filter: brightness(1.08);
+      transform: translateY(-1px);
+    }
+    .btn--secondary {
+      background: #eee6d2;
+      color: var(--text);
+      border: 1px solid #d4c29a;
+    }
+    .btn--secondary:hover {
+      background: #e4d7bd;
+    }
+    .btn-sm {
+      padding: 5px 10px;
+      font-size: 0.8rem;
+      border-radius: 6px;
+    }
+    .tabs {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 16px;
+      border-bottom: 1.5px solid var(--paper-border);
+      padding-bottom: 8px;
+    }
+    .tab-btn {
+      background: none;
+      border: none;
+      font-family: inherit;
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--text-dim);
+      padding: 8px 14px;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+    .tab-btn.active {
+      color: var(--gold-dark);
+      background: rgba(207, 168, 80, 0.15);
+    }
+    .stats-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 14px;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .table-wrap {
+      overflow-x: auto;
+      border: 1px solid var(--paper-border);
+      border-radius: 8px;
+      background: #fff;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.9rem;
+      text-align: left;
+    }
+    th {
+      background: #f4eee0;
+      padding: 10px 14px;
+      font-weight: 600;
+      color: var(--text);
+      border-bottom: 1.5px solid var(--paper-border);
+    }
+    td {
+      padding: 10px 14px;
+      border-bottom: 1px solid #eee5d3;
+      vertical-align: middle;
+    }
+    tr:hover td {
+      background: #faf6ed;
+    }
+    .guest-cell-name {
+      font-weight: 600;
+      color: var(--olive);
+    }
+    .url-text {
+      font-family: monospace;
+      font-size: 0.82rem;
+      color: #666;
+      max-width: 320px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      display: inline-block;
+    }
+    .row-actions {
+      display: flex;
+      gap: 6px;
+      align-items: center;
+    }
+    .toast {
+      position: fixed;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%) translateY(80px);
+      background: #252a12;
+      color: #f7eecf;
+      padding: 12px 24px;
+      border-radius: 999px;
+      border: 1px solid var(--gold);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+      z-index: 9999;
+      opacity: 0;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      pointer-events: none;
+      font-size: 0.9rem;
+    }
+    .toast.show {
+      transform: translateX(-50%) translateY(0);
+      opacity: 1;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <header>
+      <div class="header-tag">Wedding Tools · ហុង សុគន្ធនរៈ & ឈុយ សុគន្ធមិនា</div>
+      <h1>ឧបករណ៍បង្កើត Link ធៀបការតាមបញ្ជីភ្ញៀវ</h1>
+      <p class="subtitle">Upload file Excel (.xlsx / .csv) ឬបញ្ចូលឈ្មោះ ដើម្បីបង្កើត Link ធៀបការផ្ទាល់ខ្លួន (Personalized Invitation URL) សម្រាប់ភ្ញៀវម្នាក់ៗ</p>
+    </header>
+
+    <!-- 1. Configuration Settings -->
+    <div class="card">
+      <div class="card-title">⚙️ ការកំណត់ទូទៅ (Configuration)</div>
+      <div class="grid-2">
+        <label>
+          <span>តំណភ្ជាប់គេហទំព័រមង្គលការ (Base Website URL)</span>
+          <input type="url" id="base-url-input" placeholder="https://norak-minea-wedding.vercel.app" />
+          <small style="color:var(--text-dim); font-size:0.8rem;">បញ្ចូល Link គេហទំព័រដែលបាន Deploy ឬប្រើ Link បច្ចុប្បន្ន</small>
+        </label>
+        <label>
+          <span>ពាក្យនាំមុខឈ្មោះភ្ញៀវ (Prefix / Salutation)</span>
+          <select id="prefix-select">
+            <option value="">ប្រើឈ្មោះតាមឯកសារសុទ្ធ (As in file)</option>
+            <option value="ឯកឧត្តម">ឯកឧត្តម</option>
+            <option value="លោកជំទាវ">លោកជំទាវ</option>
+            <option value="អ្នកឧកញ៉ា">អ្នកឧកញ៉ា</option>
+            <option value="ឧកញ៉ា">ឧកញ៉ា</option>
+            <option value="លោក">លោក</option>
+            <option value="លោកស្រី">លោកស្រី</option>
+            <option value="អ្នកនាង">អ្នកនាង</option>
+            <option value="កញ្ញា">កញ្ញា</option>
+            <option value="លោកពូ">លោកពូ</option>
+            <option value="អ្នកមីង">អ្នកមីង</option>
+            <option value="បង">បង</option>
+          </select>
+        </label>
+      </div>
+    </div>
+
+    <!-- 2. Import Guests -->
+    <div class="card">
+      <div class="tabs">
+        <button class="tab-btn active" id="tab-excel" type="button">📁 Upload File Excel / CSV</button>
+        <button class="tab-btn" id="tab-manual" type="button">✍️ បញ្ចូលឈ្មោះដោយផ្ទាល់ (Paste Names)</button>
+      </div>
+
+      <!-- Excel Uploader Tab -->
+      <div id="panel-excel">
+        <div class="drop-zone" id="drop-zone">
+          <span class="drop-icon">📊</span>
+          <p style="font-weight:600; font-size:1.05rem; margin-bottom:4px;">អូសទម្លាក់ File Excel ឬ CSV មកទីនេះ</p>
+          <p style="font-size:0.85rem; color:var(--text-dim); margin-bottom:12px;">គាំទ្រឯកសារ .xlsx, .xls, .csv</p>
+          <button type="button" class="btn btn--secondary" onclick="document.getElementById('file-input').click()">
+            📂 ជ្រើសរើសឯកសារពីកុំព្យូទ័រ
+          </button>
+          <input type="file" id="file-input" accept=".xlsx,.xls,.csv" style="display:none;" />
+        </div>
+
+        <div id="column-selector" style="display:none; margin-top:16px;">
+          <label>
+            <span>សូមជ្រើសរើសជួរឈរ (Column) ដែលមានឈ្មោះភ្ញៀវ៖</span>
+            <select id="col-select"></select>
+          </label>
+        </div>
+      </div>
+
+      <!-- Manual Input Tab -->
+      <div id="panel-manual" style="display:none;">
+        <label>
+          <span>ចម្លង និងបិទភ្ជាប់បញ្ជីឈ្មោះភ្ញៀវ (១ ឈ្មោះក្នុងមួយបន្ទាត់)៖</span>
+          <textarea id="manual-text" rows="6" placeholder="ឯកឧត្តម ជា សុខា&#10;លោកជំទាវ កែវ ស៊ីណាត&#10;លោក ហេង រិទ្ធី&#10;Bong Dara"></textarea>
+        </label>
+        <div style="margin-top:12px;">
+          <button type="button" class="btn btn--primary" id="btn-parse-manual">
+            ⚡ បង្កើត Link ពីបញ្ជីខាងលើ
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 3. Generated Results Table -->
+    <div class="card" id="results-card" style="display:none;">
+      <div class="stats-bar">
+        <div>
+          <span style="font-family:'Moul', serif; font-size:1rem; color:var(--text);">បញ្ជី Link ធៀបការ</span>
+          <span id="guest-count-badge" style="background:#e6ddc8; padding:3px 10px; border-radius:999px; font-size:0.85rem; margin-left:6px; font-weight:600;">
+            0 នាក់
+          </span>
+        </div>
+        <div style="display:flex; gap:10px; flex-wrap:wrap;">
+          <button type="button" class="btn btn--secondary btn-sm" id="btn-copy-all">
+            📋 ចម្លងតំណភ្ជាប់ទាំងអស់
+          </button>
+          <button type="button" class="btn btn--primary btn-sm" id="btn-export-excel">
+            💾 ទាញយក File Excel រួមជាមួយ Link (.xlsx)
+          </button>
+        </div>
+      </div>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th style="width:50px;">#</th>
+              <th>ឈ្មោះភ្ញៀវ (Guest Name)</th>
+              <th>Link ធៀបការ (Personalized Link)</th>
+              <th style="width:230px; text-align:center;">សកម្មភាព (Actions)</th>
+            </tr>
+          </thead>
+          <tbody id="guest-table-body"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <div style="text-align:center; margin-top:2rem;">
+      <a href="/" class="btn btn--secondary">
+        ← ត្រឡប់ទៅទំព័រធៀបការដើម (Back to Wedding Invitation)
+      </a>
+    </div>
+  </div>
+
+  <div class="toast" id="toast"></div>
+
+  <script>
+    let guestList = [];
+    let originalData = [];
+    let originalFileName = "Wedding_Guest_List";
+
+    const baseUrlInput = document.getElementById("base-url-input");
+    const prefixSelect = document.getElementById("prefix-select");
+    const dropZone = document.getElementById("drop-zone");
+    const fileInput = document.getElementById("file-input");
+    const colSelect = document.getElementById("col-select");
+    const colSelectorWrap = document.getElementById("column-selector");
+    const resultsCard = document.getElementById("results-card");
+    const tableBody = document.getElementById("guest-table-body");
+    const countBadge = document.getElementById("guest-count-badge");
+
+    // Initialize Base URL
+    baseUrlInput.value = window.location.origin;
+
+    // Tab switcher
+    const tabExcel = document.getElementById("tab-excel");
+    const tabManual = document.getElementById("tab-manual");
+    const panelExcel = document.getElementById("panel-excel");
+    const panelManual = document.getElementById("panel-manual");
+
+    tabExcel.addEventListener("click", () => {
+      tabExcel.classList.add("active");
+      tabManual.classList.remove("active");
+      panelExcel.style.display = "block";
+      panelManual.style.display = "none";
+    });
+
+    tabManual.addEventListener("click", () => {
+      tabManual.classList.add("active");
+      tabExcel.classList.remove("active");
+      panelManual.style.display = "block";
+      panelExcel.style.display = "none";
+    });
+
+    // File Drag and Drop
+    dropZone.addEventListener("dragover", (e) => {
+      e.preventDefault();
+      dropZone.classList.add("dragover");
+    });
+    dropZone.addEventListener("dragleave", () => dropZone.classList.remove("dragover"));
+    dropZone.addEventListener("drop", (e) => {
+      e.preventDefault();
+      dropZone.classList.remove("dragover");
+      if (e.dataTransfer.files.length) {
+        handleFile(e.dataTransfer.files[0]);
+      }
+    });
+
+    fileInput.addEventListener("change", (e) => {
+      if (e.target.files.length) {
+        handleFile(e.target.files[0]);
+      }
+    });
+
+    function handleFile(file) {
+      originalFileName = file.name.replace(/\.[^/.]+$/, "");
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        try {
+          const data = new Uint8Array(e.target.result);
+          const workbook = XLSX.read(data, { type: "array" });
+          const firstSheet = workbook.Sheets[workbook.SheetNames[0]];
+          originalData = XLSX.utils.sheet_to_json(firstSheet, { defval: "" });
+
+          if (!originalData.length) {
+            showToast("ឯកសារគ្មានទិន្នន័យទេ!");
+            return;
+          }
+
+          const columns = Object.keys(originalData[0]);
+          populateColumnSelector(columns);
+        } catch (err) {
+          console.error(err);
+          showToast("មិនអាចអានឯកសារ Excel បានទេ!");
+        }
+      };
+      reader.readAsArrayBuffer(file);
+    }
+
+    function populateColumnSelector(columns) {
+      colSelect.innerHTML = "";
+      let bestGuess = columns[0];
+
+      columns.forEach((col) => {
+        const opt = document.createElement("option");
+        opt.value = col;
+        opt.textContent = col;
+        colSelect.appendChild(opt);
+
+        const lower = col.toLowerCase();
+        if (lower.includes("name") || lower.includes("guest") || col.includes("ឈ្មោះ") || col.includes("ភ្ញៀវ")) {
+          bestGuess = col;
+        }
+      });
+
+      colSelect.value = bestGuess;
+      colSelectorWrap.style.display = "block";
+      extractFromColumn(bestGuess);
+
+      colSelect.onchange = () => extractFromColumn(colSelect.value);
+    }
+
+    function extractFromColumn(colName) {
+      guestList = [];
+      originalData.forEach((row) => {
+        const val = String(row[colName] || "").trim();
+        if (val) guestList.push(val);
+      });
+      renderGuestTable();
+    }
+
+    // Manual parser
+    document.getElementById("btn-parse-manual").addEventListener("click", () => {
+      const text = document.getElementById("manual-text").value;
+      const lines = text.split("\n").map(l => l.trim()).filter(Boolean);
+      if (!lines.length) {
+        showToast("សូមបញ្ចូលឈ្មោះយ៉ាងហោចណាស់មួយ!");
+        return;
+      }
+      originalData = lines.map(name => ({ "ឈ្មោះភ្ញៀវ": name }));
+      guestList = lines;
+      renderGuestTable();
+    });
+
+    function buildUrl(guestName) {
+      let base = baseUrlInput.value.trim().replace(/\/+$/, "");
+      const prefix = prefixSelect.value;
+      const fullName = prefix ? `${prefix} ${guestName}` : guestName;
+      return `${base}/?to=${encodeURIComponent(fullName)}`;
+    }
+
+    function renderGuestTable() {
+      if (!guestList.length) {
+        resultsCard.style.display = "none";
+        return;
+      }
+
+      resultsCard.style.display = "block";
+      countBadge.textContent = `${guestList.length} នាក់`;
+      tableBody.innerHTML = "";
+
+      const prefix = prefixSelect.value;
+
+      guestList.forEach((name, idx) => {
+        const fullName = prefix ? `${prefix} ${name}` : name;
+        const link = buildUrl(name);
+
+        const tr = document.createElement("tr");
+        tr.innerHTML = `
+          <td style="color:var(--text-dim);">${idx + 1}</td>
+          <td class="guest-cell-name">${escapeHtml(fullName)}</td>
+          <td>
+            <span class="url-text" title="${link}">${link}</span>
+          </td>
+          <td>
+            <div class="row-actions">
+              <button type="button" class="btn btn--secondary btn-sm" onclick="copyLink('${link}')">
+                📋 ចម្លង
+              </button>
+              <a href="${link}" target="_blank" class="btn btn--secondary btn-sm">
+                👁️ មើល
+              </a>
+              <button type="button" class="btn btn--primary btn-sm" onclick="shareTg('${escapeHtml(fullName)}', '${link}')">
+                ✈️ Telegram
+              </button>
+            </div>
+          </td>
+        `;
+        tableBody.appendChild(tr);
+      });
+    }
+
+    prefixSelect.addEventListener("change", renderGuestTable);
+    baseUrlInput.addEventListener("input", renderGuestTable);
+
+    window.copyLink = (url) => {
+      navigator.clipboard.writeText(url).then(() => {
+        showToast("បានចម្លងតំណភ្ជាប់រួចរាល់!");
+      });
+    };
+
+    window.shareTg = (name, url) => {
+      const msg = encodeURIComponent(`សូមគោរពអញ្ជើញ ${name} ចូលរួមជាអធិបតី និងជាភ្ញៀវកិត្តិយស ក្នុងពិធីរៀបអាពាហ៍ពិពាហ៍របស់យើងខ្ញុំ:\n${url}`);
+      window.open(`https://t.me/share/url?url=${encodeURIComponent(url)}&text=${msg}`, "_blank");
+    };
+
+    // Copy All Links
+    document.getElementById("btn-copy-all").addEventListener("click", () => {
+      const prefix = prefixSelect.value;
+      const allText = guestList.map((name, i) => {
+        const fullName = prefix ? `${prefix} ${name}` : name;
+        return `${i + 1}. ${fullName} -> ${buildUrl(name)}`;
+      }).join("\n");
+
+      navigator.clipboard.writeText(allText).then(() => {
+        showToast("បានចម្លងតំណភ្ជាប់ទាំងអស់រួចរាល់!");
+      });
+    });
+
+    // Export to Excel with Links
+    document.getElementById("btn-export-excel").addEventListener("click", () => {
+      if (!guestList.length) return;
+
+      const prefix = prefixSelect.value;
+      const exportRows = originalData.map((row, i) => {
+        const guestName = guestList[i] || "";
+        const fullName = prefix ? `${prefix} ${guestName}` : guestName;
+        return {
+          ...row,
+          "ឈ្មោះលើធៀប": fullName,
+          "Link ធៀបការ": buildUrl(guestName)
+        };
+      });
+
+      const ws = XLSX.utils.json_to_sheet(exportRows);
+      const wb = XLSX.utils.book_new();
+      XLSX.utils.book_append_sheet(wb, ws, "Wedding_Links");
+      XLSX.writeFile(wb, `${originalFileName}_With_Invitation_Links.xlsx`);
+      showToast("បានទាញយកឯកសារ Excel រួចរាល់!");
+    });
+
+    function escapeHtml(str) {
+      return String(str)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;");
+    }
+
+    function showToast(msg) {
+      const toast = document.getElementById("toast");
+      toast.textContent = msg;
+      toast.classList.add("show");
+      setTimeout(() => toast.classList.remove("show"), 2800);
+    }
+  </script>
+</body>
+</html>

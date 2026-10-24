@@ -1,0 +1,162 @@
+=== Function hd at 252246 ===
+function hd(e=9,t=.028){let n=`M0 0 L1 0 `,r=(r,i,a,o)=>{let s=Math.hypot(a-r,o-i),c=-(o-i)/s,l=(a-r)/s;for(let s=0;s<e;s++){let u=r+(a-r)*s/e,d=i+(o-i)*s/e,f=r+(a-r)*(s+1)/e,p=i+(o-i)*(s+1)/e;n+=`Q${md((u+f)/2+c*t)} ${md((d+p)/2+l*t)} ${md(f)} ${md(p)} `}};return r(1,0,.5,1),r(.5,1,0,0),n+`Z`}function gd(){return hd(9,.028).replace(/-?\d*\.?\d+/g,e=>md(parseFloat(e)*100))}function _d(e,t,n,r=3){let i=``;for(let a=0;a<=64;a++){let o=a/64*Math.PI*2,s=n*(1+.035*Math.sin(o*7+r)+.025*Math.sin(o*13+r*2)+.02*Math.cos(o*4+r));i+=`${a?`L`:`M`}${md(e+Math.cos(o)*s)} ${md(t+Math.sin(o)*s)} `}return i+`Z`}function vd(){return`
+<svg viewBox="0 0 140 140" aria-hidden="true">
+  <defs>
+    <radialGradient id="wax" cx="38%" cy="32%" r="75%">
+      <stop offset="0" stop-color="#e7c97a"/><stop offset=".45" stop-color="#b98c35"/><stop offset="1" stop-color="#6e4c14"/>
+    </radialGradient>
+    <filter id="wax-lit" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="2.6" result="b"/>
+      <feSpecularLighting in="b" surfaceScale="5" specularConstant=".9" specularExponent="22" lighting-color="#fff6dc" result="s">
+        <fePointLight x="20" y="-10" z="90"/>
+      </feSpecularLighting>
+      <feComposite in="s" in2="SourceAlpha" operator="in" result="s2"/>
+      <feComposite in="SourceGraphic" in2="s2" operator="arithmetic" k1="0" k2="1" k3=".75" k4="0"/>
+    </filter>
+    <filter id="wax-press" x="-30%" y="-30%" width="160%" height="160%">
+      <feOffset dx="-1.2" dy="-1.2" in="SourceAlpha" result="hi"/><feFlood flood-color="#3b2706" flood-opacity=".75"/><feComposite in2="hi" operator="in" result="dark"/>
+      <feOffset dx="1.2" dy="1.4" in="SourceAlpha" result="lo"/><feFlood flood-color="#fff3cf" flood-opacity=".7"/><feComposite in2="lo" operator="in" result="light"/>
+      <feMerge><feMergeNode in="light"/><feMergeNode in="dark"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+  <path d="${_d(70,72,60,5)}" fill="#000" opacity=".35" transform="translate(2 5)" style="filter:blur(3px)"/>
+  <g filter="url(#wax-lit)">
+    <path d="${_d(70,70,60,5)}" fill="url(#wax)"/>
+    <circle cx="70" cy="70" r="44" fill="#a97d2c"/>
+  </g>
+  <circle cx="70" cy="70" r="44" fill="none" stroke="#5e400f" stroke-opacity=".55" stroke-width="1.4"/>
+  <circle cx="70" cy="70" r="39" fill="none" stroke="#f3dc9c" stroke-opacity=".35" stroke-width=".8" stroke-dasharray="1.6 3"/>
+  <g filter="url(#wax-press)" transform="translate(70 70)"
+========================================
+=== Function pd at 252012 ===
+function pd(e=!1){let t=`M0 .1 L.5 .1 C.62 .1 .6 0 .74 0 L.9 0 Q1 0 1 .09 L1 .94 Q1 1 .93 1 L0 1 Z`;return e?t.replace(/(-?\d*\.?\d+) (-?\d*\.?\d+)/g,(e,t,n)=>`${+(1-parseFloat(t)).toFixed(3)} ${n}`):t}var md=e=>Math.round(e*1e4)/1e4;function hd(e=9,t=.028){let n=`M0 0 L1 0 `,r=(r,i,a,o)=>{let s=Math.hypot(a-r,o-i),c=-(o-i)/s,l=(a-r)/s;for(let s=0;s<e;s++){let u=r+(a-r)*s/e,d=i+(o-i)*s/e,f=r+(a-r)*(s+1)/e,p=i+(o-i)*(s+1)/e;n+=`Q${md((u+f)/2+c*t)} ${md((d+p)/2+l*t)} ${md(f)} ${md(p)} `}};return r(1,0,.5,1),r(.5,1,0,0),n+`Z`}function gd(){return hd(9,.028).replace(/-?\d*\.?\d+/g,e=>md(parseFloat(e)*100))}function _d(e,t,n,r=3){let i=``;for(let a=0;a<=64;a++){let o=a/64*Math.PI*2,s=n*(1+.035*Math.sin(o*7+r)+.025*Math.sin(o*13+r*2)+.02*Math.cos(o*4+r));i+=`${a?`L`:`M`}${md(e+Math.cos(o)*s)} ${md(t+Math.sin(o)*s)} `}return i+`Z`}function vd(){return`
+<svg viewBox="0 0 140 140" aria-hidden="true">
+  <defs>
+    <radialGradient id="wax" cx="38%" cy="32%" r="75%">
+      <stop offset="0" stop-color="#e7c97a"/><stop offset=".45" stop-color="#b98c35"/><stop offset="1" stop-color="#6e4c14"/>
+    </radialGradient>
+    <filter id="wax-lit" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="2.6" result="b"/>
+      <feSpecularLighting in="b" surfaceScale="5" specularConstant=".9" specularExponent="22" lighting-color="#fff6dc" result="s">
+        <fePointLight x="20" y="-10" z="90"/>
+      </feSpecularLighting>
+      <feComposite in="s" in2="SourceAlpha" operator="in" result="s2"/>
+      <feComposite in="SourceGraphic" in2="s2" operator="arithmetic" k1="0" k2="1" k3=".75" k4="0"/>
+    </filter>
+    <filter id="wax-press" x="-30%" y="-30%" width="160%" height="160%">
+      <feOffset dx="-1.2" dy="-1.2" in="SourceAlpha" result="hi"/><feFlood flood-color="#3b2706" flood-opacity=".75"/><feComposite in2="hi" operator="in" result="dark"/>
+      <feOffset dx="1.2" dy="1.4" in="SourceAlpha" result="lo"/><feFlood flood-color="#fff3cf" flood-opacity=".7"/><feComposite in2="lo" operator="in" result="light"/>
+      <feMerge><feMergeNode in="light"/><feMergeNode in="dark"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+  <path d="${_d(70,72,60,5)}" fill="#000" opacity=".35" transform="translate(2 5)" style="filter:blur(3px)"/>
+  <g filter="url(#wax-lit)">
+    <path d="${_d(70,70,60,5)}" fill="url(#wax)"/>
+    <circle cx="70" cy="70" r="44" fill="#a97d2c"/>
+  </g>
+  <circle cx="70" cy="70" r="44" fill="none" stroke="#5e
+========================================
+=== Function gd at 252541 ===
+function gd(){return hd(9,.028).replace(/-?\d*\.?\d+/g,e=>md(parseFloat(e)*100))}function _d(e,t,n,r=3){let i=``;for(let a=0;a<=64;a++){let o=a/64*Math.PI*2,s=n*(1+.035*Math.sin(o*7+r)+.025*Math.sin(o*13+r*2)+.02*Math.cos(o*4+r));i+=`${a?`L`:`M`}${md(e+Math.cos(o)*s)} ${md(t+Math.sin(o)*s)} `}return i+`Z`}function vd(){return`
+<svg viewBox="0 0 140 140" aria-hidden="true">
+  <defs>
+    <radialGradient id="wax" cx="38%" cy="32%" r="75%">
+      <stop offset="0" stop-color="#e7c97a"/><stop offset=".45" stop-color="#b98c35"/><stop offset="1" stop-color="#6e4c14"/>
+    </radialGradient>
+    <filter id="wax-lit" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="2.6" result="b"/>
+      <feSpecularLighting in="b" surfaceScale="5" specularConstant=".9" specularExponent="22" lighting-color="#fff6dc" result="s">
+        <fePointLight x="20" y="-10" z="90"/>
+      </feSpecularLighting>
+      <feComposite in="s" in2="SourceAlpha" operator="in" result="s2"/>
+      <feComposite in="SourceGraphic" in2="s2" operator="arithmetic" k1="0" k2="1" k3=".75" k4="0"/>
+    </filter>
+    <filter id="wax-press" x="-30%" y="-30%" width="160%" height="160%">
+      <feOffset dx="-1.2" dy="-1.2" in="SourceAlpha" result="hi"/><feFlood flood-color="#3b2706" flood-opacity=".75"/><feComposite in2="hi" operator="in" result="dark"/>
+      <feOffset dx="1.2" dy="1.4" in="SourceAlpha" result="lo"/><feFlood flood-color="#fff3cf" flood-opacity=".7"/><feComposite in2="lo" operator="in" result="light"/>
+      <feMerge><feMergeNode in="light"/><feMergeNode in="dark"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+  <path d="${_d(70,72,60,5)}" fill="#000" opacity=".35" transform="translate(2 5)" style="filter:blur(3px)"/>
+  <g filter="url(#wax-lit)">
+    <path d="${_d(70,70,60,5)}" fill="url(#wax)"/>
+    <circle cx="70" cy="70" r="44" fill="#a97d2c"/>
+  </g>
+  <circle cx="70" cy="70" r="44" fill="none" stroke="#5e400f" stroke-opacity=".55" stroke-width="1.4"/>
+  <circle cx="70" cy="70" r="39" fill="none" stroke="#f3dc9c" stroke-opacity=".35" stroke-width=".8" stroke-dasharray="1.6 3"/>
+  <g filter="url(#wax-press)" transform="translate(70 70)" class="wax-crest">${od(66)}</g>
+</svg>`}function yd(e,{names:t,dateShort:n,triLeft:r=``,triRight:i=``}){e.innerHTML=`
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+    <clipPath id="clip-flap" clipPathUnits="objectBoundingBox"><path d="${hd()}"/></clipPath>
+  
+========================================
+=== Function cd at 247432 ===
+function cd({groom:e,bride:t,cls:n=``,crest:r=!0}={}){return`
+<div class="lockup ${n}" role="img" aria-label="${e} & ${t}">
+  <svg class="lk-orn" viewBox="0 0 600 470" aria-hidden="true">
+    ${r?`<g class="lk-crest" transform="translate(300 60) scale(.5)">${nd()}</g>`:``}
+    <path class="lk-swash" d="M40 292 C110 318 170 314 206 296 C236 280 238 254 220 250 C202 246 196 272 214 284 C240 302 262 294 272 284"/>
+    <path class="lk-swash lk-swash2" d="M318 446 C392 460 476 456 566 438"/>
+    <path class="lk-heart" d="M266 316 C259 304 244 308 246 321 C248 332 266 341 266 348 C266 341 284 332 286 321 C288 308 273 304 266 316 Z"/>
+  </svg>
+  <span class="lk-name lk-groom" aria-hidden="true">${e}</span>
+  <span class="lk-name lk-bride" aria-hidden="true">${t}</span>
+  <div class="lk-butterfly" aria-hidden="true">${Ru(`is-resting`)}</div>
+</div>`}var ld=[`M190 30 V470`,`M190 468 L757 612 L848 642`,`M352 520 L190 682 V1540`,`M190 241 H1160`,`M757 150 V1000`,`M575 585 V1540`,`M190 1005 H575`,`M40 1298 H800`,`M30 797 L190 768`,`M985 612 L1200 532`,`M965 735 V985`,`M880 716 L757 798`],ud=[[190,395,90],[322,586,135],[190,752,90],[575,660,90],[785,632,180],[515,1005,180],[190,985,-90]],dd=[{km:`ផ្លូវ៦០ម៉ែត្រ`,en:`60 m Road`,x:345,y:241,s:30,band:1},{km:`ផ្លូវ៦០ម៉ែត្រ`,en:`60 m Road`,x:960,y:241,s:30,band:1},{km:`ផ្លូវជាតិលេខ២`,en:`National Road 2`,x:190,y:190,r:-90,s:28,band:1},{km:`មកពីភ្នំពេញ`,en:`From Phnom Penh`,x:1100,y:572,r:-20.4,s:28,band:1},{km:`ផ្លូវមាត់ទន្លេ`,en:`Riverside Rd`,x:965,y:870,r:-90,s:28,band:1},{km:`ផ្លូវ១០៥`,en:`Road 105`,x:757,y:880,r:-90,s:28,band:1},{km:`ច្រកទី៥`,en:`Lane 5`,x:470,y:1052,s:30},{km:`វត្តព្រះពុទ្ធអណ្តែត`,en:`Wat Preah Puth Andaet`,x:585,y:366,s:32,es:25,ex:555},{km:`Coffee Nobicah`,en:`Coffee Nobicah`,x:404,y:426,r:14,s:27,latin:1},{km:`កាក់សសាំង`,en:`Kak Sa Sang`,x:411,y:668,s:28},{km:`ស្ពាន៦០ម៉ែត្រ`,en:`60 m Bridge`,x:806,y:382,s:30,a:`start`},{km:`ស្ពានព្រែកហូរ`,en:`Prek Ho Bridge`,x:652,y:668,s:24,es:19,ex:668},{km:`រង្វង់មូល`,en:`Ta Khmau`,x:930,y:658,s:26,es:21},{km:`តាខ្មៅ`,en:`Circle`,x:930,y:692,s:26,es:21},{km:`ស្នាក់ការគណបក្ស`,en:`Party Office`,x:606,y:1398,s:28,a:`start`}];function fd({houseLabel:e=`ផ្ទះកម្មវិធី`,cls:t=``,lang:n=`km`}={}){let r=ld.map(e=>`<path d="${e}"/>`).join(``);return`
+<svg class="linemap ${t}" viewBox="20 40 1200 1420" role="img" aria-label="Map to the wedding house">
+  <g class="lm-roads" fill="none" stroke-linejoin="round">
+    <g stroke="var(--paper-ink)" stroke-width="54">${r}<circle cx
+========================================
+=== Function rd at 246828 ===
+function rd(e=`tl`){let[t,n]=$u.corner.wh;return`<svg class="kbach-corner kb-${e}" viewBox="0 0 ${t} ${n}" aria-hidden="true"><g transform="${{tl:``,tr:`translate(${t} 0) scale(-1 1)`,bl:`translate(0 ${n}) scale(1 -1)`,br:`translate(${t} ${n}) scale(-1 -1)`}[e]||``}"><g class="kb-sway">${$u.corner.g}</g></g></svg>`}var id=(e=``)=>ed(`divider`,`kbach-divider ${e}`),ad=(e=``)=>ed(`medallion`,`kbach-medallion ${e}`);function od(e=60){let[t,n]=$u.medallion.wh,r=e/t;return`<g transform="translate(${-e/2} ${-(n*r)/2}) scale(${r})">${$u.medallion.g}</g>`}var sd=(e=``)=>ed(`flap`,`kbach-flapborder ${e}`);function cd({groom:e,bride:t,cls:n=``,crest:r=!0}={}){return`
+<div class="lockup ${n}" role="img" aria-label="${e} & ${t}">
+  <svg class="lk-orn" viewBox="0 0 600 470" aria-hidden="true">
+    ${r?`<g class="lk-crest" transform="translate(300 60) scale(.5)">${nd()}</g>`:``}
+    <path class="lk-swash" d="M40 292 C110 318 170 314 206 296 C236 280 238 254 220 250 C202 246 196 272 214 284 C240 302 262 294 272 284"/>
+    <path class="lk-swash lk-swash2" d="M318 446 C392 460 476 456 566 438"/>
+    <path class="lk-heart" d="M266 316 C259 304 244 308 246 321 C248 332 266 341 266 348 C266 341 284 332 286 321 C288 308 273 304 266 316 Z"/>
+  </svg>
+  <span class="lk-name lk-groom" aria-hidden="true">${e}</span>
+  <span class="lk-name lk-bride" aria-hidden="true">${t}</span>
+  <div class="lk-butterfly" aria-hidden="true">${Ru(`is-resting`)}</div>
+</div>`}var ld=[`M190 30 V470`,`M190 468 L757 612 L848 642`,`M352 520 L190 682 V1540`,`M190 241 H1160`,`M757 150 V1000`,`M575 585 V1540`,`M190 1005 H575`,`M40 1298 H800`,`M30 797 L190 768`,`M985 612 L1200 532`,`M965 735 V985`,`M880 716 L757 798`],ud=[[190,395,90],[322,586,135],[190,752,90],[575,660,90],[785,632,180],[515,1005,180],[190,985,-90]],dd=[{km:`ផ្លូវ៦០ម៉ែត្រ`,en:`60 m Road`,x:345,y:241,s:30,band:1},{km:`ផ្លូវ៦០ម៉ែត្រ`,en:`60 m Road`,x:960,y:241,s:30,band:1},{km:`ផ្លូវជាតិលេខ២`,en:`National Road 2`,x:190,y:190,r:-90,s:28,band:1},{km:`មកពីភ្នំពេញ`,en:`From Phnom Penh`,x:1100,y:572,r:-20.4,s:28,band:1},{km:`ផ្លូវមាត់ទន្លេ`,en:`Riverside Rd`,x:965,y:870,r:-90,s:28,band:1},{km:`ផ្លូវ១០៥`,en:`Road 105`,x:757,y:880,r:-90,s:28,band:1},{km:`ច្រកទី៥`,en:`Lane 5`,x:470,y:1052,s:30},{km:`វត្តព្រះពុទ្ធអណ្តែត`,en:`Wat Preah Puth Andaet`,x:585,y:366,s:32,es:25,ex:555},{km:`Coffee Nobicah`,en:`Coffee Nobicah`,x:404,y:426,r:14,s:27,latin:1},{km:`កាក់សសាំង`,en:`Kak Sa Sang`,x:411,y:668,s:28},{km:`ស្ពាន៦០ម៉ែត្រ`,en:`60 m Bridge`,x:806,y:382,s:
+========================================
+=== Function vd at 252848 ===
+function vd(){return`
+<svg viewBox="0 0 140 140" aria-hidden="true">
+  <defs>
+    <radialGradient id="wax" cx="38%" cy="32%" r="75%">
+      <stop offset="0" stop-color="#e7c97a"/><stop offset=".45" stop-color="#b98c35"/><stop offset="1" stop-color="#6e4c14"/>
+    </radialGradient>
+    <filter id="wax-lit" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="2.6" result="b"/>
+      <feSpecularLighting in="b" surfaceScale="5" specularConstant=".9" specularExponent="22" lighting-color="#fff6dc" result="s">
+        <fePointLight x="20" y="-10" z="90"/>
+      </feSpecularLighting>
+      <feComposite in="s" in2="SourceAlpha" operator="in" result="s2"/>
+      <feComposite in="SourceGraphic" in2="s2" operator="arithmetic" k1="0" k2="1" k3=".75" k4="0"/>
+    </filter>
+    <filter id="wax-press" x="-30%" y="-30%" width="160%" height="160%">
+      <feOffset dx="-1.2" dy="-1.2" in="SourceAlpha" result="hi"/><feFlood flood-color="#3b2706" flood-opacity=".75"/><feComposite in2="hi" operator="in" result="dark"/>
+      <feOffset dx="1.2" dy="1.4" in="SourceAlpha" result="lo"/><feFlood flood-color="#fff3cf" flood-opacity=".7"/><feComposite in2="lo" operator="in" result="light"/>
+      <feMerge><feMergeNode in="light"/><feMergeNode in="dark"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+  <path d="${_d(70,72,60,5)}" fill="#000" opacity=".35" transform="translate(2 5)" style="filter:blur(3px)"/>
+  <g filter="url(#wax-lit)">
+    <path d="${_d(70,70,60,5)}" fill="url(#wax)"/>
+    <circle cx="70" cy="70" r="44" fill="#a97d2c"/>
+  </g>
+  <circle cx="70" cy="70" r="44" fill="none" stroke="#5e400f" stroke-opacity=".55" stroke-width="1.4"/>
+  <circle cx="70" cy="70" r="39" fill="none" stroke="#f3dc9c" stroke-opacity=".35" stroke-width=".8" stroke-dasharray="1.6 3"/>
+  <g filter="url(#wax-press)" transform="translate(70 70)" class="wax-crest">${od(66)}</g>
+</svg>`}function yd(e,{names:t,dateShort:n,triLeft:r=``,triRight:i=``}){e.innerHTML=`
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+    <clipPath id="clip-flap" clipPathUnits="objectBoundingBox"><path d="${hd()}"/></clipPath>
+    <clipPath id="clip-tri-a" clipPathUnits="objectBoundingBox"><path d="${pd(!1)}"/></clipPath>
+    <clipPath id="clip-tri-b" clipPathUnits="objectBoundingBox"><path d="${pd(!0)}"/></clipPath>
+  </defs></svg>
+  <div class="e2" id="env">
+    <div class="e2__ground" aria-hidden="true"></div>
+    <div class="e
+========================================
